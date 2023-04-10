@@ -1,0 +1,22 @@
+-- Find the folder "EggHuntEggs"
+local eggFolder = game:GetService("Workspace"):FindFirstChild("EggHuntEggs")
+
+-- Find the player's character
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+
+if eggFolder then
+    -- Loop through each model in the folder
+    for i = 1, 40 do
+        local eggModel = eggFolder:FindFirstChild(tostring(i))
+        if eggModel then
+            -- Find the "HumanoidRootPart" in the model
+            local humanoidRootPart = eggModel:FindFirstChild("HumanoidRootPart")
+            if humanoidRootPart then
+                -- Teleport the character to the "HumanoidRootPart"'s position
+                character:SetPrimaryPartCFrame(CFrame.new(humanoidRootPart.Position))
+                wait(1) -- wait for 1 second before teleporting to the next "HumanoidRootPart"
+            end
+        end
+    end
+end
